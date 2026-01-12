@@ -88,6 +88,42 @@ View pod logs:
 kubectl logs curl-01 -n ns-b
 ```
 
+## 6. Expose Nginx Service in ns-a
+
+Create a Service to expose the nginx pod and enable pod-to-pod communication:
+
+```bash
+kubectl apply -f expose-service.yaml
+```
+
+### Verify Service Deployment
+
+Check if the service was created:
+```bash
+kubectl get svc -n ns-a
+```
+
+Get detailed service information:
+```bash
+kubectl describe svc nginx-service -n ns-a
+```
+
+### What This Service Does
+
+- **Exposes nginx** on ports 80 (HTTP) and 443 (HTTPS)
+- **Provides stable DNS** so other pods can reliably reach nginx
+- **Enables curl pod** (in ns-b) to communicate with nginx (in ns-a)
+
+### Test Connectivity
+
+Once both nginx and curl pods are running, test the connection:
+
+```bash
+kubectl exec -it curl-01 -n ns-b -- curl http://nginx-service.ns-a.svc.cluster.local
+```
+
+You should see the nginx welcome page if the Service is working correctly.
+
 ## Tips for First Steps
 
 - **Always check cluster connectivity first:** Run `kubectl get nodes` to ensure you're connected
