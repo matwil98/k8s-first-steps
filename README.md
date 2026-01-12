@@ -38,6 +38,56 @@ kubectl get namespaces
 
 You should see `ns-a` and `ns-b` in the output.
 
+## 4. Deploy Nginx Pod in ns-a
+
+Deploy the nginx pod to the `ns-a` namespace using the YAML manifest:
+
+```bash
+kubectl apply -f ns-a-nginx.yaml
+```
+
+### Verify Nginx Deployment
+
+Check if the pod is running:
+```bash
+kubectl get pods -n ns-a
+```
+
+Get detailed pod information:
+```bash
+kubectl describe pod nginx-01 -n ns-a
+```
+
+View pod logs:
+```bash
+kubectl logs nginx-01 -n ns-a
+```
+
+## 5. Deploy Curl Pod in ns-b
+
+Deploy the curl pod to the `ns-b` namespace using the YAML manifest:
+
+```bash
+kubectl apply -f ns-b-curl.yaml
+```
+
+### Verify Curl Deployment in ns-b
+
+Check if the pod is running:
+```bash
+kubectl get pods -n ns-b
+```
+
+Get detailed pod information:
+```bash
+kubectl describe pod curl-01 -n ns-b
+```
+
+View pod logs:
+```bash
+kubectl logs curl-01 -n ns-b
+```
+
 ## Tips for First Steps
 
 - **Always check cluster connectivity first:** Run `kubectl get nodes` to ensure you're connected
